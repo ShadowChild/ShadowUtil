@@ -2,6 +2,7 @@ package io.github.shadowchild.util;
 
 
 import io.github.shadowchild.util.utils.Refs;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -17,10 +18,13 @@ public class ShadowUtil {
 
     public File configFolder;
 
+    private static boolean isDeobf = false;
+
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e) {
 
         configFolder = e.getModConfigurationDirectory();
+        isDeobf = (Boolean)Launch.blackboard.get("fml.deobfuscatedEnvironment");
     }
 
     @Mod.EventHandler
@@ -31,5 +35,10 @@ public class ShadowUtil {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e) {
 
+    }
+
+    public static boolean isDeobf() {
+
+        return isDeobf;
     }
 }
